@@ -23,7 +23,15 @@ def upload(paste_id: str):
 
 @app.route('/<paste_id>', methods=['POST'])
 def download(paste_id: str):
-    return 'DOWNLOAD'
+
+    file_location = os.path.join(STORE_DIR, paste_id)
+    try:
+        with open(file_location, 'wb') as f:
+            f.write(request.get_data())
+    except:
+        return '', 400
+
+    return '', 201
 
 if __name__ == '__main__':
     
