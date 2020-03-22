@@ -1,0 +1,32 @@
+<input type='text' id='pasteId' name='pasteId' />
+<input type='text' id='username' name='username' />
+<input type='password' id='password' name='password' />
+<button id='submit'>Go</button>
+
+<textarea id='file-contents' rows='100' cols=100>
+
+</textarea>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    
+    document.querySelector('#submit').onclick = async () => {
+      const pasteId = document.querySelector('#pasteId').value;
+      const username = document.querySelector('#username').value;
+      const password = document.querySelector('#password').value;
+
+      const encodedAuth = btoa(`${username}:${password}`);
+
+      const rawText = await (await fetch(`/${pasteId}`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Basic ${encodedAuth}`,
+        },
+      })).text();
+      document.querySelector('#file-contents').textContent = rawText;
+      //window.open('data:text/plain,' + encodeURIComponent(rawText))
+
+    };
+  })
+  
+</script>
