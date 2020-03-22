@@ -1,5 +1,5 @@
 #!/bin/sh
-# Usage: ./read-pastey paste-id
+# Usage: ./write-pastey filename
 
 # username and password for Pastey
 USERNAME="user"
@@ -11,7 +11,7 @@ PASTEY_URL="http://localhost:5000/"
 
 AUTH_HEADER=$(echo -n "$USERNAME:$PASSWORD" | base64)
 
-curl -H "Authorization: Basic $AUTH_HEADER" "$PASTEY_URL$1"
+# POST chosen file to the server
+curl -X POST -H "Authorization: Basic $AUTH_HEADER" --data-binary @$1 "$PASTEY_URL$1"
 
-# add new line
-echo ''
+

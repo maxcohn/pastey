@@ -33,7 +33,7 @@ def upload(paste_id: str):
 @app.route('/<paste_id>', methods=['POST'])
 def download(paste_id: str):
     if not check_auth(request.headers.get('Authorization')):
-        return 'nope', 401
+        return '', 401
 
     file_location = os.path.join(STORE_DIR, paste_id)
 
